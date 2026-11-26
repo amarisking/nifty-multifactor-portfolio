@@ -20,7 +20,7 @@
 | MF-20 RiskParity |17.4%|15.1%|0.74|1.02|-33.7%|0.52|822.3%|
 | MF-20 HRP |16.7%|14.8%|0.71|0.99|-32.9%|0.51|928.7%|
 | MF-20 HRP + risk overlay |13.1%|12.5%|0.57|0.77|-24.7%|0.53|928.7%|
-| NIFTYBEES |10.9%|265.4%|0.28|2.63|-89.9%|0.12||
+| NIFTYBEES |10.8%|14.7%|0.37|0.50|-36.3%|0.30||
 
 ![single factors](figures/01_single_factors.png)
 
@@ -35,7 +35,7 @@
 | MF-20 RiskParity |17.4%|15.1%|0.74|-33.7%|0.52|
 | MF-20 HRP |16.7%|14.8%|0.71|-32.9%|0.51|
 | MF-20 HRP + risk overlay |13.1%|12.5%|0.57|-24.7%|0.53|
-| NIFTYBEES |10.9%|265.4%|0.28|-89.9%|0.12|
+| NIFTYBEES |10.8%|14.7%|0.37|-36.3%|0.30|
 
 ![construction methods](figures/02_construction_methods.png)
 
@@ -44,18 +44,18 @@
 
 | |Alpha (ann.)|Alpha t-stat|Beta|Tracking error|Information ratio|Up capture|Down capture|
 |---|---|---|---|---|---|---|---|
-| Equal-weight (all) |11.5%|2.40|0.00|265.1%|-0.24|0.56|0.88|
-| Momentum |13.1%|2.27|0.00|265.2%|-0.23|0.59|0.93|
-| Low volatility |7.3%|1.72|0.00|265.2%|-0.25|0.43|0.68|
-| Reversal |17.8%|3.15|0.00|265.2%|-0.22|0.61|0.91|
-| Trend-filtered momentum |12.9%|2.30|0.00|265.2%|-0.23|0.56|0.88|
-| Multi-factor (top 10) |11.4%|2.18|0.00|265.1%|-0.24|0.53|0.84|
-| MF-20 EW |11.5%|2.41|0.00|265.1%|-0.24|0.53|0.83|
-| MF-20 MinVar |9.3%|2.18|0.00|265.1%|-0.25|0.44|0.68|
-| MF-20 MaxSharpe |8.4%|1.70|0.00|265.2%|-0.25|0.47|0.75|
-| MF-20 RiskParity |11.0%|2.42|0.00|265.1%|-0.24|0.50|0.78|
-| MF-20 HRP |10.3%|2.33|0.00|265.1%|-0.24|0.48|0.76|
-| MF-20 HRP + risk overlay |6.9%|1.80|0.00|265.1%|-0.26|0.42|0.67|
+| Equal-weight (all) |6.3%|4.19|1.01|5.6%|1.13|1.05|0.97|
+| Momentum |7.6%|2.28|1.07|11.9%|0.67|1.12|1.03|
+| Low volatility |3.4%|1.46|0.77|8.7%|0.24|0.81|0.75|
+| Reversal |12.1%|3.99|1.09|11.1%|1.14|1.15|1.01|
+| Trend-filtered momentum |7.7%|2.33|1.02|12.0%|0.65|1.06|0.97|
+| Multi-factor (top 10) |6.4%|2.24|0.97|10.0%|0.62|1.00|0.92|
+| MF-20 EW |6.5%|3.19|0.96|7.4%|0.85|1.00|0.91|
+| MF-20 MinVar |5.3%|2.26|0.78|8.9%|0.46|0.83|0.75|
+| MF-20 MaxSharpe |4.1%|1.37|0.85|10.8%|0.30|0.88|0.83|
+| MF-20 RiskParity |6.3%|3.18|0.91|7.3%|0.80|0.94|0.86|
+| MF-20 HRP |5.8%|2.91|0.88|7.4%|0.70|0.91|0.83|
+| MF-20 HRP + risk overlay |3.3%|1.61|0.70|8.2%|0.21|0.79|0.74|
 
 
 ## 4. Risk layer
@@ -84,7 +84,7 @@ Full-sample one-day 95% VaR of MF-20 HRP: -1.35%; CVaR: -2.09%.
 | COVID crash |-34.4%|-35.0%|-40.8%|-37.0%|-31.9%|-23.7%|
 | 2021-22 rate-hike selloff |-16.1%|-14.7%|-15.8%|-13.2%|-13.8%|-11.9%|
 | 2024-25 drawdown |-9.7%|-12.0%|-21.3%|-17.6%|-13.1%|-13.8%|
-| Worst single day |-89.9%|-12.2%|-15.0%|-13.5%|-11.9%|-7.0%|
+| Worst single day |-10.2%|-12.2%|-15.0%|-13.5%|-11.9%|-7.0%|
 
 
 ## 5. Validation
@@ -115,7 +115,7 @@ Full-sample one-day 95% VaR of MF-20 HRP: -1.35%; CVaR: -2.09%.
 | Walk-forward momentum (OOS) |14.7%|18.7%|0.51|-41.6%|
 | Fixed 252d/top10 momentum |14.9%|20.2%|0.49|-41.6%|
 | Equal-weight (all) |18.3%|16.5%|0.74|-36.3%|
-| NIFTYBEES |11.7%|307.3%|0.32|-89.9%|
+| NIFTYBEES |11.7%|15.2%|0.41|-36.3%|
 
 | |Test period start|Chosen params|Train Sharpe (daily)|
 |---|---|---|---|
@@ -133,12 +133,12 @@ Full-sample one-day 95% VaR of MF-20 HRP: -1.35%; CVaR: -2.09%.
 
 | |Sharpe|5th pct|95th pct|P(Sharpe > benchmark)|
 |---|---|---|---|---|
-| NIFTYBEES |0.28|-0.05|0.73||
-| Equal-weight (all) |0.74|0.22|1.29|0.94|
-| Momentum |0.68|0.19|1.19|0.91|
-| Multi-factor (top 10) |0.67|0.17|1.21|0.90|
-| MF-20 HRP |0.71|0.21|1.26|0.93|
-| MF-20 HRP + risk overlay |0.57|0.05|1.13|0.81|
+| NIFTYBEES |0.37|-0.15|0.92||
+| Equal-weight (all) |0.74|0.22|1.29|1.00|
+| Momentum |0.68|0.19|1.19|0.96|
+| Multi-factor (top 10) |0.67|0.17|1.21|0.96|
+| MF-20 HRP |0.71|0.21|1.26|0.99|
+| MF-20 HRP + risk overlay |0.57|0.05|1.13|0.87|
 
 **Calendar-year returns:**
 
@@ -147,7 +147,7 @@ Full-sample one-day 95% VaR of MF-20 HRP: -1.35%; CVaR: -2.09%.
 
 ## 6. Automatic observations (read critically)
 
-- Highest full-sample Sharpe: **Reversal** (0.93) vs benchmark 0.28. Picking the best of many strategies in-sample overstates its true skill (multiple testing).
+- Highest full-sample Sharpe: **Reversal** (0.93) vs benchmark 0.37. Picking the best of many strategies in-sample overstates its true skill (multiple testing).
 
 - Strategies with higher Sharpe than the benchmark: 12 of 12.
 
