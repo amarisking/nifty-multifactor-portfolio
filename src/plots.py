@@ -1,4 +1,6 @@
 """Figures saved to results/figures."""
+import time
+
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -8,8 +10,23 @@ from . import metrics
 
 
 def _save(fig, path):
+    """Save a figure. On Windows (especially inside OneDrive folders) a file
+    can be briefly locked, so retry, then fall back to another file name
+    instead of crashing the whole run."""
     fig.tight_layout()
-    fig.savefig(path, dpi=130)
+    for _ in range(4):
+        try:
+            fig.savefig(path, dpi=130)
+            plt.close(fig)
+            return
+        except OSError:
+            time.sleep(2)
+    alt = path.with_name(path.stem + "_new" + path.suffix)
+    try:
+        fig.savefig(alt, dpi=130)
+        print(f"WARNING: could not overwrite {path.name}; saved as {alt.name}")
+    except OSError:
+        print(f"WARNING: could not save {path.name}; continuing without it")
     plt.close(fig)
 
 

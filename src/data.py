@@ -28,6 +28,26 @@ def download_prices(tickers=None, start=None, end=None, use_cache=True):
     return raw
 
 
+def _repair_benchmark(prices, bench_name, max_gap=0.05, max_move=0.15):
+    """Yahoo ETF data sometimes contains bad ticks or unadjusted splits
+    (e.g. a one-day -90% move). Where the benchmark's daily return differs
+    from the Nifty index return by more than `max_gap`, use the index return
+    instead. Without the index, flag |return| > `max_move` and set it to 0."""
+    px = prices[bench_name].dropna()
+    ret = px.pct_change()
+    if config.INDEX_TICKER in prices and bench_name != config.INDEX_TICKER:
+        idx_ret = prices[config.INDEX_TICKER].pct_change().reindex(ret.index)
+        bad = ((ret - idx_ret).abs() > max_gap) | (ret.abs() > max_move)
+        ret[bad] = idx_ret[bad].fillna(0.0)
+    else:
+        bad = ret.abs() > max_move
+        ret[bad] = 0.0
+    if bad.any():
+        print(f"WARNING: repaired {int(bad.sum())} bad benchmark day(s): "
+              f"{[d.date().isoformat() for d in ret.index[bad]][:10]}")
+    return (1 + ret.fillna(0.0)).cumprod() * px.iloc[0]
+
+
 def clean_prices(prices, max_missing=0.30, ffill_limit=5):
     """Returns (stock_prices, benchmark_prices, benchmark_name).
 
@@ -44,7 +64,7 @@ def clean_prices(prices, max_missing=0.30, ffill_limit=5):
     bench_name = config.BENCHMARK_ETF if etf_ok else config.INDEX_TICKER
     if not etf_ok:
         print("WARNING: using price-only ^NSEI as benchmark (no dividends).")
-    bench = prices[bench_name].dropna()
+    bench = _repair_benchmark(prices, bench_name)
 
     stocks = prices.drop(columns=[config.INDEX_TICKER, config.BENCHMARK_ETF],
                          errors="ignore")
