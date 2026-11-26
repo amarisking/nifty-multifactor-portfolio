@@ -42,7 +42,22 @@ If you ran an earlier version, delete `data/prices.csv` so the benchmark ETF dow
 - One market, ~10 years, one regime sequence.
 
 ## Findings
-*Fill this in after running on real data (see CAREER_KIT.md for the template).*
+Sample: Feb 2015 to Nov 2026, 46 Nifty stocks, net of 10 bps trading costs, benchmark NIFTYBEES (dividend-adjusted ETF).
+
+1. **No signal or optimizer beat equal-weight of the same stocks.** Sharpe ratios: equal-weight 0.74, risk parity 0.74, HRP 0.71, momentum 0.68, multi-factor (top 10) 0.67. Bootstrap 90% intervals overlap heavily (equal-weight: 0.22 to 1.29), so the strategies cannot be ranked statistically.
+2. **Apparent outperformance over the index is mostly survivorship bias.** Equal-weighting today's index members earned 17.9% CAGR vs 10.8% for the ETF, with no stock-picking skill involved.
+3. **Mean-variance (max-Sharpe) was the worst weighting method** (Sharpe 0.53), consistent with the known sensitivity of optimizers to noisy return estimates.
+4. **The risk overlay (volatility target + drawdown rule) worked as crash insurance but cost returns.** Max drawdown fell from -32.9% to -24.7% and the COVID-crash loss from -31.9% to -23.7%, but CAGR dropped from 16.7% to 13.1%.
+5. **Costs matter.** HRP's Sharpe falls from 0.78 at 0 bps to 0.46 at 50 bps because turnover is about 930% a year.
+6. **VaR:** historical and parametric 95% VaR were well calibrated (breach rates 5.3% and 5.0%). GARCH-t VaR breached 6.1% of days (Kupiec p = 0.01).
+7. **Walk-forward test:** momentum with parameters chosen on past data earned an out-of-sample Sharpe of 0.51 vs 0.74 for equal-weight.
+
+### What did not work
+- Momentum added no value and had a deeper drawdown (-41.6%). It was weakest in 2024-25 (-21.3% vs -12.0% for equal-weight).
+- Max-Sharpe optimization underperformed simple weighting.
+- GARCH-t VaR was less well calibrated than simple methods. I have not diagnosed why.
+- The reversal strategy shows the best Sharpe (0.93) but turns over about 20x a year, so I do not trust it under realistic costs.
+- The benchmark ETF data contained bad prices (265% volatility), which broke the first results. The pipeline now detects and repairs such days.
 
 ## Roadmap
 - Point-in-time index constituents; mid-cap universe
